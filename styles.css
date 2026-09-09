@@ -16,3 +16,6 @@ html{scroll-behavior:smooth}body{overflow-x:hidden}
 .canvas,.canvas2,.canvas3,.canvas4{background-image:linear-gradient(135deg,rgba(33,26,22,.08),rgba(33,26,22,.28)),url('assets/seidu/instagram-5-DcaGgjtiIhT.jpg');background-position:center 42%}
 .paper,.paper2,.paper3,.paper4{background-image:linear-gradient(135deg,rgba(242,239,231,.06),rgba(33,31,28,.22)),url('assets/seidu/instagram-1-C6zisb9o6lG.jpg');background-position:center 28%}
 .portrait{background-image:linear-gradient(135deg,rgba(17,16,14,.08),rgba(17,16,14,.4)),url('assets/seidu/instagram-4-DcyU1S8IT72.jpg');background-position:center 38%}
+
+/* The tattoo category uses a real studio-process image, never an unrelated artwork. */
+.ink,.ink2,.ink3{background-image:linear-gradient(135deg,rgba(15,14,12,.12),rgba(15,14,12,.5)),url('assets/tattoo-process.jpg');background-size:cover;background-position:center 54%}
