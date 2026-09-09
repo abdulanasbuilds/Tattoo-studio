@@ -1,0 +1,12 @@
+node_modules/
+.git/
+.github/
+.wrangler/
+.gitignore
+.assetsignore
+package-lock.json
+bun.lock
+bun.lockb
+README.md
+*.zip
+*.log
