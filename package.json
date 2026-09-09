@@ -1,0 +1,9 @@
+{
+  "name": "tattoo-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SEIDU Art local client-ready portfolio and inquiry website",
+  "scripts": {
+    "test": "echo \"Static site — no automated test suite configured\""
+  }
+}
