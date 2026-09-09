@@ -19,3 +19,5 @@ html{scroll-behavior:smooth}body{overflow-x:hidden}
 
 /* The tattoo category uses a real studio-process image, never an unrelated artwork. */
 .ink,.ink2,.ink3{background-image:linear-gradient(135deg,rgba(15,14,12,.12),rgba(15,14,12,.5)),url('assets/tattoo-process.jpg');background-size:cover;background-position:center 54%}
+/* Homepage tattoo feature card: use the same verified process image as the Work page. */
+.ink-portrait{background-image:linear-gradient(135deg,rgba(15,14,12,.12),rgba(15,14,12,.5)),url('assets/tattoo-process.jpg');background-size:cover;background-position:center 54%}
