@@ -1,0 +1,9 @@
+export const variantConfigs = {
+  v1: { theme: 'v1', heroKicker: 'Custom work · New York E2', heroTitle: 'Stories made\npermanent.', heroText: 'A tattoo studio for custom work, considered detail, and the art that stays with you.', heroImage: 'assets/tattoo-process.jpg', heroLabel: 'Northstar / 01', intro: 'We make room for the idea before we make the mark.', cta: 'Start a conversation' },
+  v2: { theme: 'v2', heroKicker: 'Private studio · Est. 2014', heroTitle: 'Art,\nunder skin.', heroText: 'A bright, gallery-minded studio for artists and clients who care about the whole experience.', heroImage: 'assets/seidu/instagram-4-DcyU1S8IT72.jpg', heroLabel: 'Selected work / 24', intro: 'A generous room for a very personal kind of art.', cta: 'View the studio' },
+  v3: { theme: 'v3', heroKicker: 'Custom tattooing · visual arts', heroTitle: 'Make it\nmeaningful.', heroText: 'Your story, translated into line, shade, and a piece you will keep returning to.', heroImage: 'assets/seidu/instagram-1-C6zisb9o6lG.jpg', heroLabel: 'Made by hand / 03', intro: 'The best tattoos feel found, not chosen.', cta: 'Meet the artists' },
+  v4: { theme: 'v4', heroKicker: 'The Northstar archive / 001—2026', heroTitle: 'A living\nrecord.', heroText: 'Healed work, honest process, and a roster of artists with a point of view.', heroImage: 'assets/seidu/instagram-2-DdCuf7WoTin.jpg', heroLabel: 'Archive / 004', intro: 'Every mark is a record of a moment, held in the body.', cta: 'Browse the archive' },
+  v5: { theme: 'v5', heroKicker: 'Flash · custom · aftercare', heroTitle: 'Go on.\nGet inked.', heroText: 'Bold ideas, sharp lines, and a studio that knows when to keep things simple.', heroImage: 'assets/seidu/instagram-3-Dc9ZtlTiIJz.jpg', heroLabel: 'Flash sheet / live', intro: 'Bring the idea. We’ll bring the nerve.', cta: 'Claim your session' },
+};
+if (typeof window !== 'undefined') window.NorthstarVariants = variantConfigs;
+export default variantConfigs;
