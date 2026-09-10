@@ -27,7 +27,6 @@ function renderHome() {
   $('.hero').innerHTML = `<div class="hero-copy"><div class="kicker"><span class="kicker-line"></span>${esc(ref.kicker)}</div><h1>${esc(ref.title).replace('\n', '<br>')}</h1><p class="hero-text">${esc(ref.text)}</p><div class="hero-actions"><a class="button button-fill" href="#book">${esc(ref.cta)} <span>↗</span></a><a class="text-link" href="#work">${esc(ref.secondary)} <span>↓</span></a></div><div class="hero-index">${esc(activeReference.toUpperCase())} <span>/</span> ${esc(ref.mode)}</div></div><div class="hero-visual"><img src="${cfg.heroImage}" alt="Tattoo artwork at Northstar Ink"><div class="image-label"><span>${esc(ref.label)} / ${esc(ref.source)}</span><span>Scroll to explore ↓</span></div><div class="hero-stamp">${esc(activeReference.toUpperCase())}</div></div>`;
   $('.intro').innerHTML = `<div class="eyebrow">/ 01 — ${esc(ref.section)}</div><div class="intro-statement"><p>${esc(cfg.intro)}</p><a class="circle-link" href="#studio">${esc(ref.note)} <span>↗</span></a></div><div class="intro-meta"><span>Northstar Ink · New York</span><span>Custom / flash / visual arts</span></div>`;
   renderWork(); renderServices(); renderArtists(); renderProcess(); renderStudio(); renderBooking(); renderFooter();
-  $('.variant-label').textContent = variants[activeVariant].label;
   attachInteractions();
 }
 
