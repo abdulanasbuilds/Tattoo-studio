@@ -1,25 +1,31 @@
 import { studio, variants, getVariant } from '../data/studio.js';
 import { variantConfigs } from '../variants/config.js';
+import { references } from '../data/references.js';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const esc = (value) => String(value).replace(/[&<>\"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#039;' }[char]));
 
-let activeVariant = getVariant(new URLSearchParams(location.search).get('v') || localStorage.getItem('northstar-variant') || 'v1');
+const query = new URLSearchParams(location.search);
+let activeReference = references[query.get('ref')] ? query.get('ref') : localStorage.getItem('northstar-reference') || 'marrow';
+let activeVariant = getVariant(query.get('v') || localStorage.getItem('northstar-variant') || 'v1');
 
 function renderHeader() {
-  $('.site-header').innerHTML = `<a class="brand" href="#home" aria-label="Northstar Ink home"><span class="brand-mark">✳</span><span>NORTHSTAR<br>INK</span></a><nav class="main-nav" aria-label="Primary navigation"><div class="nav-home"><a href="#home">Home <span class="nav-caret">⌄</span></a><div class="variant-menu">${Object.entries(variants).map(([id, item]) => `<button class="variant-option" data-variant="${id}"><span>${id.toUpperCase()}</span>${esc(item.label)}</button>`).join('')}</div></div><a href="#work">Work</a><a href="#artists">Artists</a><a href="#process">Process</a><a href="#studio">Studio</a></nav><a class="nav-book" href="#book">Book a session <span>↗</span></a><button class="menu-toggle" aria-label="Toggle menu">Menu</button>`;
-  $$('.variant-option').forEach((button) => button.addEventListener('click', () => switchVariant(button.dataset.variant)));
+  $('.site-header').innerHTML = `<a class="brand" href="#home" aria-label="Northstar Ink home"><span class="brand-mark">✳</span><span>NORTHSTAR<br>INK</span></a><nav class="main-nav" aria-label="Primary navigation"><div class="nav-home"><a href="#home">Home <span class="nav-caret">⌄</span></a><div class="variant-menu">${Object.entries(references).map(([id, item]) => `<button class="variant-option reference-option" data-reference="${id}"><span>${id.toUpperCase().slice(0,2)}</span>${esc(item.label)}</button>`).join('')}<div class="menu-divider"></div>${Object.entries(variants).map(([id, item]) => `<button class="variant-option variant-only" data-variant="${id}"><span>${id.toUpperCase()}</span>${esc(item.label)}</button>`).join('')}</div></div><a href="#work">Work</a><a href="#artists">Artists</a><a href="#process">Process</a><a href="#studio">Studio</a></nav><a class="nav-book" href="#book">Book a session <span>↗</span></a><button class="menu-toggle" aria-label="Toggle menu">Menu</button>`;
+  $$('.variant-only').forEach((button) => button.addEventListener('click', () => switchVariant(button.dataset.variant)));
+  $$('.reference-option').forEach((button) => button.addEventListener('click', () => switchReference(button.dataset.reference)));
   $('.menu-toggle').addEventListener('click', () => document.body.classList.toggle('menu-open'));
 }
 
 function renderHome() {
   const cfg = variantConfigs[activeVariant];
+  const ref = references[activeReference];
   document.body.dataset.variant = activeVariant;
+  document.body.dataset.reference = activeReference;
   document.documentElement.style.setProperty('--accent', variants[activeVariant].accent);
   $('.site-header').className = 'site-header';
-  $('.hero').innerHTML = `<div class="hero-copy"><div class="kicker"><span class="kicker-line"></span>${esc(cfg.heroKicker)}</div><h1>${esc(cfg.heroTitle).replace('\n', '<br>')}</h1><p class="hero-text">${esc(cfg.heroText)}</p><div class="hero-actions"><a class="button button-fill" href="#book">${esc(cfg.cta)} <span>↗</span></a><a class="text-link" href="#work">See selected work <span>↓</span></a></div><div class="hero-index">0${Number(activeVariant.slice(1))} <span>/</span> 05</div></div><div class="hero-visual"><img src="${cfg.heroImage}" alt="Tattoo artwork at Northstar Ink"><div class="image-label"><span>${esc(cfg.heroLabel)}</span><span>Scroll to explore ↓</span></div><div class="hero-stamp">${activeVariant === 'v4' ? 'NS / ARCHIVE' : 'N★'}</div></div>`;
-  $('.intro').innerHTML = `<div class="eyebrow">/ 01 — The practice</div><div class="intro-statement"><p>${esc(cfg.intro)}</p><a class="circle-link" href="#studio">About the studio <span>↗</span></a></div><div class="intro-meta"><span>New York · Since 2014</span><span>Custom / flash / visual arts</span></div>`;
+  $('.hero').innerHTML = `<div class="hero-copy"><div class="kicker"><span class="kicker-line"></span>${esc(ref.kicker)}</div><h1>${esc(ref.title).replace('\n', '<br>')}</h1><p class="hero-text">${esc(ref.text)}</p><div class="hero-actions"><a class="button button-fill" href="#book">${esc(ref.cta)} <span>↗</span></a><a class="text-link" href="#work">${esc(ref.secondary)} <span>↓</span></a></div><div class="hero-index">${esc(activeReference.toUpperCase())} <span>/</span> ${esc(ref.mode)}</div></div><div class="hero-visual"><img src="${cfg.heroImage}" alt="Tattoo artwork at Northstar Ink"><div class="image-label"><span>${esc(ref.label)} / ${esc(ref.source)}</span><span>Scroll to explore ↓</span></div><div class="hero-stamp">${esc(activeReference.toUpperCase())}</div></div>`;
+  $('.intro').innerHTML = `<div class="eyebrow">/ 01 — ${esc(ref.section)}</div><div class="intro-statement"><p>${esc(cfg.intro)}</p><a class="circle-link" href="#studio">${esc(ref.note)} <span>↗</span></a></div><div class="intro-meta"><span>Northstar Ink · New York</span><span>Custom / flash / visual arts</span></div>`;
   renderWork(); renderServices(); renderArtists(); renderProcess(); renderStudio(); renderBooking(); renderFooter();
   $('.variant-label').textContent = variants[activeVariant].label;
   attachInteractions();
@@ -54,7 +60,10 @@ function renderFooter() {
 }
 
 function switchVariant(id) {
-  activeVariant = getVariant(id); localStorage.setItem('northstar-variant', activeVariant); history.replaceState(null, '', `${location.pathname}?v=${activeVariant}`); renderHome(); window.scrollTo({ top: 0, behavior: 'smooth' });
+  activeVariant = getVariant(id); localStorage.setItem('northstar-variant', activeVariant); history.replaceState(null, '', `${location.pathname}?ref=${activeReference}&v=${activeVariant}`); renderHome(); window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function switchReference(id) {
+  if (!references[id]) return; activeReference = id; localStorage.setItem('northstar-reference', activeReference); history.replaceState(null, '', `${location.pathname}?ref=${activeReference}&v=${activeVariant}`); renderHome(); window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function attachInteractions() {
