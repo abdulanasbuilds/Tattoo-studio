@@ -1,23 +1,21 @@
-# SEIDU Art — local client-ready prototype
+# Tattoo Studio Reference Variants
 
-Static multi-page website for Seidu Art. No dashboard/admin/backend is included by design.
+This project is intentionally reference-faithful. The Home / Variants menu exposes the seven supplied websites directly, page for page, without replacing their content with an invented design system.
 
-## Pages
-- Home
-- Work / filterable portfolio + lightbox
-- Services
-- About
-- Contact
-- Start a Project / WhatsApp inquiry
+## Reference variants
 
-## Run locally
-Use any static server. Example:
+- TAT Studio — `?site=tatstudio`
+- TattooVerse — `?site=tattooverse`
+- Tattoxa — `?site=tattoxa`
+- Marrow — `?site=marrow`
+- David — `?site=david`
+- Uroki — `?site=uroki`
+- Spector — `?site=spector`
+
+Run locally with any static server, for example:
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Then open http://localhost:4173/.
-
-## Important asset note
-The visual panels are intentionally neutral art-direction placeholders because no approved Seidu portfolio assets were supplied. Replace them with his own tattoo photography, paintings, pencil scans, portrait/studio photos before client delivery. The content, structure and interactions are already wired for those assets.
+The current homepage is a thin local selector around the exact supplied reference pages so visual comparison remains one-to-one.
