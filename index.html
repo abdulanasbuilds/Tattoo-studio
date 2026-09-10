@@ -1,32 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Northstar Ink — custom tattooing, visual arts, and considered detail in New York.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Northstar Ink — custom tattooing, visual arts, and one-of-one work." />
   <title>Northstar Ink — Custom Tattoo Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body data-variant="v1">
-  <div class="reading-progress"></div>
-  <header class="site-header"></header>
-  <main>
-    <section class="hero" id="home"></section>
-    <section class="intro reveal"></section>
-    <section class="work-section section reveal"></section>
-    <section class="services-section section section-dark reveal"></section>
-    <section class="artists-section section reveal"></section>
-    <section class="process-section section section-dark reveal"></section>
-    <section class="studio-section reveal"></section>
-    <section class="book-section section reveal"></section>
-    <section class="faq-section section reveal"><div class="section-top"><div class="eyebrow">/ 08 — Good to know</div><span class="section-note">Before you start</span></div><div class="faq-layout"><h2>Questions,<br><em>answered.</em></h2><div class="faq-list"> <div class="faq-item"><div><span>01</span><h3>How do I book?</h3></div><span class="faq-plus">+</span><p>Send a note through the booking form with your idea, placement, approximate size, and reference images. We reply within 48 hours.</p></div><div class="faq-item"><div><span>02</span><h3>Do you take walk-ins?</h3></div><span class="faq-plus">+</span><p>We are appointment-led. A limited flash window opens every Saturday when noted in our booking calendar.</p></div><div class="faq-item"><div><span>03</span><h3>Can I bring my own design?</h3></div><span class="faq-plus">+</span><p>Yes. We love working from your references, then refining scale, placement, and line quality with you.</p></div><div class="faq-item"><div><span>04</span><h3>What about aftercare?</h3></div><span class="faq-plus">+</span><p>Every session includes a printed aftercare guide and a follow-up check-in tailored to your piece.</p></div></div></div></section>
-    <section class="quote-section reveal"><p>“The best tattoos feel found,<br><em>not chosen.</em>”</p><span>— Northstar Ink / New York</span></section>
-  </main>
-  <footer class="site-footer"></footer>
+  <header class="site-header"><div id="headerMount"></div></header>
+  <main id="app"></main>
+  <footer id="footerMount"></footer>
   <script type="module" src="app/renderer.js"></script>
-  <script>addEventListener('scroll',()=>{const t=document.documentElement.scrollHeight-innerHeight;document.querySelector('.reading-progress').style.width=(t?scrollY/t*100:0)+'%'})</script>
 </body>
 </html>
