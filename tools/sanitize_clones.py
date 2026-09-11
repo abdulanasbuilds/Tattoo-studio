@@ -16,6 +16,7 @@ BUILDER = {
 REMOVE_TEXT = (
     'Buy Template', 'More Templates', 'Create a free website with Framer',
     'Framer template', 'Website by Framer', 'Made in Framer', 'Get Template',
+    'Charwastudio', 'Created by',
 )
 STYLE = '''<style id="abdul-anas-overrides">
 .abdul-anas-builder-footer{margin:0;padding:clamp(32px,6vw,90px) clamp(20px,5vw,80px);background:#111;color:#fff;text-align:center;display:grid;gap:18px;position:relative;z-index:20;font-family:Arial,sans-serif}
@@ -67,9 +68,12 @@ def sanitize(path):
     for tag in soup.find_all(True):
         for attr in list(tag.attrs or {}):
             if attr.lower().startswith('data-framer'): del tag.attrs[attr]
+            elif isinstance(tag.attrs.get(attr), str) and 'framer.com' in tag.attrs[attr].lower():
+                tag.attrs[attr] = tag.attrs[attr].replace('jane@framer.com', 'jane@example.com').replace('framer.com', 'example.com')
     for tag in list(soup.find_all(['a','button','div','span','p','small','li'])):
         if tag.parent is None or tag.name in {'body','html','main','footer'} or tag.get('id') == 'main' or tag.parent.get('id') == 'main': continue
-        if text_match(tag): tag.decompose()
+        if text_match(tag):
+            tag.decompose()
     for tag in list(soup.find_all(['a','script','link'])):
         href, src = str(tag.get('href','')), str(tag.get('src',''))
         script = tag.get_text(' ', strip=False) if tag.name == 'script' else ''
