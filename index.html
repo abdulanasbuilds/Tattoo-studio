@@ -6,29 +6,27 @@
   <meta name="description" content="Exact reference variants for the supplied tattoo and creative studio websites.">
   <title>Reference Variants — Tattoo Studio</title>
   <style>
-    :root{font-family:Arial,sans-serif;color:#fff;background:#111}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#111}.reference-frame{border:0;width:100%;height:100%;display:block;background:#111}.variant-bar{position:fixed;z-index:1000;top:16px;right:18px;font:12px/1 Arial,sans-serif;mix-blend-mode:difference}.variant-bar details{position:relative}.variant-bar summary{list-style:none;cursor:pointer;color:#fff;padding:9px 12px;border:1px solid #fff;background:#1118}.variant-bar summary::-webkit-details-marker{display:none}.variant-menu{position:absolute;right:0;top:38px;width:240px;padding:6px;background:#111;color:#fff;border:1px solid #fff}.variant-menu a{display:grid;grid-template-columns:35px 1fr;gap:8px;color:#fff;text-decoration:none;padding:11px 9px}.variant-menu a:hover,.variant-menu a.active{background:#fff;color:#111}.variant-menu b{font-size:10px;opacity:.65}.reference-badge{position:fixed;z-index:999;bottom:12px;left:14px;max-width:300px;color:#fff;background:#111b;padding:7px 9px;font:10px/1.3 Arial,sans-serif;mix-blend-mode:difference;pointer-events:none}@media(max-width:700px){.variant-bar{top:10px;right:10px}.reference-badge{max-width:220px}}
+    :root{font-family:Arial,sans-serif;color:#fff;background:#111}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#111}.reference-frame{border:0;width:100%;height:100%;display:block;background:#111}.variant-bar{position:fixed;z-index:1000;top:16px;right:18px;font:12px/1 Arial,sans-serif;mix-blend-mode:difference}.variant-bar details{position:relative}.variant-bar summary{list-style:none;cursor:pointer;color:#fff;padding:9px 12px;border:1px solid #fff;background:#1118}.variant-bar summary::-webkit-details-marker{display:none}.variant-menu{position:absolute;right:0;top:38px;width:240px;padding:6px;background:#111;color:#fff;border:1px solid #fff}.variant-menu a{display:grid;grid-template-columns:35px 1fr;gap:8px;color:#fff;text-decoration:none;padding:11px 9px}.variant-menu a:hover,.variant-menu a.active{background:#fff;color:#111}.variant-menu b{font-size:10px;opacity:.65}@media(max-width:700px){.variant-bar{top:10px;right:10px}}
   </style>
 </head>
 <body>
   <nav class="variant-bar" aria-label="Home reference variants"><details open><summary>HOME / VARIANTS ⌄</summary><div id="variantMenu" class="variant-menu"></div></details></nav>
   <iframe id="referenceFrame" class="reference-frame" title="Selected reference website"></iframe>
-  <div id="referenceBadge" class="reference-badge"></div>
   <script>
     const references={
-      spector:{label:'Spector — Digital Creative Agency',url:'clones/spector.html?clean=20260910'},
-      tatstudio:{label:'TAT Studio — Best Tattoo Studio in NYC',url:'clones/tatstudio.html?clean=20260910'},
-      tattooverse:{label:'TattooVerse — Art Beneath the Skin',url:'clones/tattooverse.html?clean=20260910'},
-      tattoxa:{label:'Tattoxa — Premium Tattoo Studio',url:'clones/tattoxa.html?clean=20260910'},
-      marrow:{label:'Marrow — Tattoo Studio, London E2',url:'clones/marrow.html?clean=20260910'},
-      david:{label:'David — Custom Tattoo Design',url:'clones/david.html?clean=20260910'},
-      uroki:{label:'Uroki Tattoo Studio — Warsaw',url:'clones/uroki.html?clean=20260910'}
+      spector:{label:'Spector — Digital Creative Agency',url:'clones/spector.html?clean=20260911'},
+      tatstudio:{label:'TAT Studio — Best Tattoo Studio in NYC',url:'clones/tatstudio.html?clean=20260911'},
+      tattooverse:{label:'TattooVerse — Art Beneath the Skin',url:'clones/tattooverse.html?clean=20260911'},
+      tattoxa:{label:'Tattoxa — Premium Tattoo Studio',url:'clones/tattoxa.html?clean=20260911'},
+      marrow:{label:'Marrow — Tattoo Studio, London E2',url:'clones/marrow.html?clean=20260911'},
+      david:{label:'David — Custom Tattoo Design',url:'clones/david.html?clean=20260911'},
+      uroki:{label:'Uroki Tattoo Studio — Warsaw',url:'clones/uroki.html?clean=20260911'}
     };
     const params=new URLSearchParams(location.search);
     const selected=references[params.get('site')]?params.get('site'):'tatstudio';
     const menu=document.getElementById('variantMenu');
     menu.innerHTML=Object.entries(references).map(([id,item])=>`<a class="${id===selected?'active':''}" href="?site=${id}"><b>${id.toUpperCase()}</b><span>${item.label}</span></a>`).join('');
     document.getElementById('referenceFrame').src=references[selected].url;
-    document.getElementById('referenceBadge').textContent='Exact reference: '+references[selected].label;
   </script>
 </body>
 </html>
