@@ -75,6 +75,9 @@ def sanitize(path):
         if text_match(tag):
             tag.decompose()
     for tag in list(soup.find_all(['a','script','link'])):
+        if tag.name == 'script':
+            tag.decompose()
+            continue
         href, src = str(tag.get('href','')), str(tag.get('src',''))
         script = tag.get_text(' ', strip=False) if tag.name == 'script' else ''
         urls = (href + ' ' + src + ' ' + script).lower()
@@ -82,6 +85,10 @@ def sanitize(path):
     for tag in list(soup.find_all(['meta','title'])):
         vals = ' '.join(str(v) for v in (tag.attrs or {}).values()).lower() + ' ' + tag.get_text(' ', strip=True).lower()
         if any(x in vals for x in ['canonical','og:url','twitter:url','framer','template']): tag.decompose()
+    for tag in soup.find_all(['input','textarea']):
+        for attr in ('placeholder','value'):
+            if attr in tag.attrs:
+                tag.attrs[attr] = re.sub(r'(?i)framer(?:\.com)?', 'example.com', str(tag.attrs[attr]))
     for comment in list(soup.find_all(string=lambda v: isinstance(v,str) and 'framer' in v.lower())):
         if comment.parent and comment.parent.name not in {'script','style'}: comment.extract()
     for node in list(soup.find_all(string=True)):
