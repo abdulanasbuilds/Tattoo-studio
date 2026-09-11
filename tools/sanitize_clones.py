@@ -77,7 +77,8 @@ def sanitize(path):
     for tag in list(soup.find_all(['a','script','link'])):
         href, src = str(tag.get('href','')), str(tag.get('src',''))
         script = tag.get_text(' ', strip=False) if tag.name == 'script' else ''
-        if 'framer.com' in href or 'framer.com' in src or 'framer.com' in script.lower(): tag.decompose()
+        urls = (href + ' ' + src + ' ' + script).lower()
+        if any(marker in urls for marker in ['framer.com', 'charwastudio', 'lemonsqueezy', 'buy-template', 'more-templates']): tag.decompose()
     for tag in list(soup.find_all(['meta','title'])):
         vals = ' '.join(str(v) for v in (tag.attrs or {}).values()).lower() + ' ' + tag.get_text(' ', strip=True).lower()
         if any(x in vals for x in ['canonical','og:url','twitter:url','framer','template']): tag.decompose()
@@ -87,6 +88,8 @@ def sanitize(path):
         if node.parent and node.parent.name not in {'script','style'}:
             cleaned = node
             for marker in REMOVE_TEXT: cleaned = cleaned.replace(marker, '')
+            cleaned = re.sub(r'(?i)all rights reserved', '', cleaned)
+            cleaned = re.sub(r'©\s*20\d{2}', '', cleaned)
             cleaned = re.sub(r'(?i)framer(?:\.com)?', '', cleaned)
             if cleaned != node: node.replace_with(NavigableString(cleaned))
     head = soup.head or soup.new_tag('head'); head.append(BeautifulSoup(STYLE, 'html.parser'))
