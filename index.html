@@ -82,31 +82,35 @@
       [/\bLet's Discuss\b/gi,'Book a Session']
     ];
 
+    function removeClosestLeaf(el){
+      let node=el;
+      while(node&&node!==el.ownerDocument.body){
+        const text=(node.textContent||'').replace(/\s+/g,' ').trim();
+        const childElements=node.children?.length||0;
+        if(text.length<=140&&(childElements<=3||node.tagName==='A'||node.tagName==='BUTTON'||node.tagName==='P'||node.tagName==='LI')){
+          node.remove();
+          return;
+        }
+        node=node.parentElement;
+      }
+    }
+
     function removeUnrelatedFooterContent(doc){
-      const phrases=[
+      const phrasePatterns=[
         /ALEJA\s+3\s+MAJA\s+2\/45/i,
-        /GATE\s*3\s*,?\s*FLOOR\s*5/i
+        /GATE\s*3\s*,?\s*FLOOR\s*5/i,
+        /Tattooing\s*[·•]\s*Painting\s*[·•]\s*Sketches\s*[·•]\s*Visual Art/i
       ];
 
-      for(const phrase of phrases){
+      for(const pattern of phrasePatterns){
         const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT);
         const matches=[];
         while(walker.nextNode()){
           const node=walker.currentNode;
           const parent=node.parentElement;
-          if(parent&&!['SCRIPT','STYLE','NOSCRIPT'].includes(parent.tagName)&&phrase.test(node.nodeValue||''))matches.push(node);
+          if(parent&&!['SCRIPT','STYLE','NOSCRIPT'].includes(parent.tagName)&&pattern.test(node.nodeValue||''))matches.push(node);
         }
-        for(const node of matches){
-          let el=node.parentElement;
-          while(el&&el!==doc.body){
-            const text=(el.textContent||'').replace(/\s+/g,' ').trim();
-            if(text.length<=180){
-              el.remove();
-              break;
-            }
-            el=el.parentElement;
-          }
-        }
+        for(const node of matches)removeClosestLeaf(node.parentElement);
       }
 
       doc.querySelectorAll('a[href]').forEach(a=>{
@@ -120,14 +124,14 @@
         }
       });
 
-      const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT);
-      const replacements=[];
-      while(walker.nextNode()){
-        const node=walker.currentNode;
-        const parent=node.parentElement;
-        if(parent&&!['SCRIPT','STYLE','NOSCRIPT'].includes(parent.tagName)&&/Website\s+by/i.test(node.nodeValue||''))replacements.push(node);
-      }
-      for(const node of replacements)node.nodeValue=(node.nodeValue||'').replace(/Website\s+by\s+Gaurav\s+Singh/gi,'Website by Abdul Anas');
+      const footerButtons=[...doc.querySelectorAll('a,button')].filter(el=>{
+        const text=(el.textContent||'').replace(/\s+/g,' ').trim();
+        if(text!=='Book a Session')return false;
+        const rect=el.getBoundingClientRect();
+        const viewportBottom=doc.defaultView?.innerHeight||0;
+        return rect.top>viewportBottom*1.5 || rect.top>Math.max(0,doc.documentElement.scrollHeight-900);
+      });
+      footerButtons.forEach(removeClosestLeaf);
     }
 
     function clean(doc){
