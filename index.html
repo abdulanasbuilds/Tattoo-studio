@@ -1,127 +1,44 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Tattoo studio and visual art practice featuring custom tattoos, paintings, sketches, and original artwork.">
-  <title>Seidu Tattoo Studio — Tattoos & Visual Art</title>
-  <style>
-    :root{font-family:Arial,sans-serif;color:#fff;background:#111}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#111}.reference-frame{border:0;width:100%;height:100%;display:block;background:#111}.variant-bar{position:fixed;z-index:1000;top:16px;right:18px;font:12px/1 Arial,sans-serif;mix-blend-mode:difference}.variant-bar details{position:relative}.variant-bar summary{list-style:none;cursor:pointer;color:#fff;padding:9px 12px;border:1px solid #fff;background:#1118}.variant-bar summary::-webkit-details-marker{display:none}.variant-menu{position:absolute;right:0;top:38px;width:240px;padding:6px;background:#111;color:#fff;border:1px solid #fff}.variant-menu a{display:grid;grid-template-columns:35px 1fr;gap:8px;color:#fff;text-decoration:none;padding:11px 9px}.variant-menu a:hover,.variant-menu a.active{background:#fff;color:#111}.variant-menu b{font-size:10px;opacity:.65}@media(max-width:700px){.variant-bar{top:10px;right:10px}}
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Reusable tattoo studio and visual art website templates for client projects.">
+  <title>Tattoo Studio</title>
+  <style>html,body{margin:0;height:100%;background:#0b0b0b}iframe{border:0;width:100%;height:100vh;display:block}</style>
 </head>
 <body>
-  <nav class="variant-bar" aria-label="Tattoo and visual art variants"><details open><summary>STUDIO / STYLES ⌄</summary><div id="variantMenu" class="variant-menu"></div></details></nav>
-  <iframe id="referenceFrame" class="reference-frame" title="Tattoo and visual art studio page"></iframe>
+  <iframe id="page" title="Tattoo Studio"></iframe>
   <script>
-    const references={
-      spector:{label:'Visual Art & Tattoo Studio',url:'clones/spector-v74e2db6.html?clean=74e2db6'},
-      tatstudio:{label:'Tattoo Studio — Tattoos & Visual Art',url:'clones/tatstudio-v74e2db6.html?clean=74e2db6'},
-      tattooverse:{label:'TattooVerse — Tattoos & Visual Art',url:'clones/tattooverse-v74e2db6.html?clean=74e2db6'},
-      tattoxa:{label:'Tattoxa — Tattoo & Visual Art',url:'clones/tattoxa-v74e2db6.html?clean=74e2db6'},
-      marrow:{label:'Marrow — Tattoo & Visual Art',url:'clones/marrow-v74e2db6.html?clean=74e2db6'},
-      david:{label:'David — Custom Tattoo & Art',url:'clones/david-v74e2db6.html?clean=74e2db6'},
-      uroki:{label:'Uroki — Tattoo & Visual Art',url:'clones/uroki-v74e2db6.html?clean=74e2db6'}
-    };
-
-    const copyRules=[
-      [/\bBuy Template\b/gi,'Book a session'],
-      [/\bMore Templates\b/gi,'View more work'],
-      [/Create a free website with Framer/gi,'Custom tattoos & visual art'],
-      [/\bFramer template\b/gi,'studio artwork'],
-      [/\bFramer Templates\b/gi,'studio work'],
-      [/\bWebsite by Framer\b/gi,'Seidu Tattoo Studio'],
-      [/\bMade in Framer\b/gi,'Seidu Tattoo Studio'],
-      [/\bGet Template\b/gi,'Book a session'],
-      [/\bpricing\b/gi,'services'],
-      [/\bprices?\b/gi,'session details'],
-      [/\bstarting\s+at\b/gi,'custom work'],
-      [/\bper\s+hour\b/gi,'per session'],
-      [/\bdeposit\b/gi,'booking note'],
-      [/\bbudget\b/gi,'design direction'],
-      [/\bcost\b/gi,'session details'],
-      [/\brequest a quote\b/gi,'send an enquiry'],
-      [/\brequest pricing\b/gi,'send an enquiry'],
-      [/\bview pricing\b/gi,'view the work'],
-      [/\bdigital creative agency\b/gi,'tattoo & visual art studio'],
-      [/\bcreative agency\b/gi,'tattoo & visual art studio'],
-      [/\bdigital agency\b/gi,'tattoo & visual art studio'],
-      [/\bcreative studio\b/gi,'tattoo & visual art studio'],
-      [/\bdesign agency\b/gi,'tattoo & visual art studio'],
-      [/\bdesign studio\b/gi,'tattoo & visual art studio'],
-      [/\bweb design\b/gi,'custom tattoo design'],
-      [/\bdigital design\b/gi,'visual art'],
-      [/\bdigital products?\b/gi,'custom artwork'],
-      [/\bbrand identity\b/gi,'art direction'],
-      [/\bbranding\b/gi,'visual art'],
-      [/\bcampaigns?\b/gi,'art projects'],
-      [/\bour team\b/gi,'our artists'],
-      [/\bthe team\b/gi,'the artists'],
-      [/\bportfolio\b/gi,'selected work'],
-      [/\bprojects?\b/gi,'artworks'],
-      [/\bcontact us\b/gi,'book a session'],
-      [/\bget in touch\b/gi,'book a session'],
-      [/\bwork with us\b/gi,'work with the artist'],
-      [/\bbook now\b/gi,'book a session']
+    const sites={david:'clones/david-v74e2db6.html',uroki:'clones/uroki-v74e2db6.html'};
+    const requested=new URLSearchParams(location.search).get('site');
+    const selected=sites[requested]?requested:'david';
+    const frame=document.getElementById('page');
+    const map=[
+      [/\bDavid\b/gi,'TATTOO STUDIO'],[/\bWilliams\b/gi,'VISUAL ART'],[/hello@davidwilliams\.com/gi,'Book a Session'],
+      [/\bUroki\b/gi,'TATTOO STUDIO'],[/\bNorthstar\b/gi,'TATTOO STUDIO'],[/\bSeidu\b/gi,'TATTOO STUDIO'],
+      [/\bEast Legon\b/gi,'By appointment'],[/\bManhattan\b/gi,'By appointment'],[/\bNew York City\b/gi,'Studio & Gallery'],[/\bLondon\b/gi,'By appointment'],
+      [/\bWarsaw\b/gi,'By appointment'],[/\bPoland\b/gi,'Studio & Gallery'],
+      [/\bOlivia\b/gi,'Tattoo Client'],[/\bGorgia Ferico\b/gi,'Tattoo Client'],[/\bCo-Founder at Luca\b/gi,'Custom Session'],
+      [/\bSeidu Tattoo Studio\b/gi,'Tattoo Studio'],[/\bHi, I am\b/gi,'WELCOME TO'],
+      [/\bContact us\b/gi,'Book a Session'],[/\bGet in touch\b/gi,'Book a Session'],[/\bLet’s Discuss\b/gi,'Book a Session'],[/\bLet's Discuss\b/gi,'Book a Session']
     ];
-    const priceToken=/(^|[^A-Za-z])(?:[$€£]\s*\d[\d,]*(?:\.\d{1,2})?|\d[\d,]*(?:\.\d{1,2})?\s*(?:USD|EUR|GBP|GHS))(?=[^A-Za-z]|$)/gi;
-
-    function rewrite(value){
-      let next=String(value||'').replace(priceToken,'$1custom work');
-      for(const [pattern,replacement] of copyRules) next=next.replace(pattern,replacement);
-      next=next.replace(/\bFramer(?:\.com)?\b/gi,'Seidu Tattoo Studio');
-      return next;
-    }
-
-    function rewriteIframe(frame){
-      let doc;
-      try{doc=frame.contentDocument;}catch(_){return;}
+    function clean(doc){
       if(!doc||!doc.body)return;
-
-      const titleMap='Seidu Tattoo Studio — Tattoos & Visual Art';
-      if(doc.title)doc.title=titleMap;
-      else doc.title=titleMap;
-
-      const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT);
-      const nodes=[];
-      while(walker.nextNode()){
-        const node=walker.currentNode;
-        if(node.parentElement && !['SCRIPT','STYLE','NOSCRIPT'].includes(node.parentElement.tagName)) nodes.push(node);
-      }
-      for(const node of nodes){const next=rewrite(node.nodeValue);if(next!==node.nodeValue)node.nodeValue=next;}
-
-      doc.querySelectorAll('input[placeholder],textarea[placeholder],[aria-label],[title]').forEach(el=>{
-        for(const attr of ['placeholder','aria-label','title']){
-          if(el.hasAttribute(attr)) el.setAttribute(attr,rewrite(el.getAttribute(attr)));
-        }
+      if(doc.title)doc.title='Tattoo Studio | Custom Tattoos & Visual Art';
+      const walk=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT);
+      const nodes=[];while(walk.nextNode())if(!['SCRIPT','STYLE','NOSCRIPT'].includes(walk.currentNode.parentElement?.tagName))nodes.push(walk.currentNode);
+      for(const node of nodes){let text=node.nodeValue;for(const [r,v] of map)text=text.replace(r,v);if(text!==node.nodeValue)node.nodeValue=text;}
+      doc.querySelectorAll('a[href]').forEach(a=>{
+        const h=(a.getAttribute('href')||'').toLowerCase();
+        if(h.startsWith('mailto:')||h.startsWith('tel:')||h.includes('davidwilliams')||h.includes('uroki')||h.includes('frank-pineapples')){a.setAttribute('href','#');a.textContent='Book a Session';}
       });
-
-      const observer=new MutationObserver(mutations=>{
-        for(const mutation of mutations){
-          for(const node of mutation.addedNodes){
-            if(node.nodeType===Node.TEXT_NODE && node.parentElement && !['SCRIPT','STYLE','NOSCRIPT'].includes(node.parentElement.tagName)){
-              const next=rewrite(node.nodeValue);if(next!==node.nodeValue)node.nodeValue=next;
-            }else if(node.nodeType===Node.ELEMENT_NODE){
-              const subWalker=doc.createTreeWalker(node,NodeFilter.SHOW_TEXT);
-              const pending=[];
-              while(subWalker.nextNode()){
-                const textNode=subWalker.currentNode;
-                if(textNode.parentElement && !['SCRIPT','STYLE','NOSCRIPT'].includes(textNode.parentElement.tagName))pending.push(textNode);
-              }
-              for(const textNode of pending){const next=rewrite(textNode.nodeValue);if(next!==textNode.nodeValue)textNode.nodeValue=next;}
-            }
-          }
-        }
-      });
-      observer.observe(doc.body,{subtree:true,childList:true});
+      doc.querySelectorAll('meta[name="description"],meta[property="og:description"],meta[name="twitter:description"]').forEach(m=>m.setAttribute('content','Custom tattoos, paintings, sketches, and visual artwork from a modern tattoo studio.'));
+      doc.querySelectorAll('meta[property="og:title"],meta[name="twitter:title"]').forEach(m=>m.setAttribute('content','Tattoo Studio | Custom Tattoos & Visual Art'));
+      new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1||n.nodeType===3)clean(doc)}))).observe(doc.body,{subtree:true,childList:true});
     }
-
-    const params=new URLSearchParams(location.search);
-    const selected=references[params.get('site')]?params.get('site'):'tatstudio';
-    const menu=document.getElementById('variantMenu');
-    menu.innerHTML=Object.entries(references).map(([id,item])=>`<a class="${id===selected?'active':''}" href="?site=${id}"><b>${id.toUpperCase()}</b><span>${item.label}</span></a>`).join('');
-    const frame=document.getElementById('referenceFrame');
-    frame.addEventListener('load',()=>rewriteIframe(frame));
-    frame.src=references[selected].url;
+    frame.addEventListener('load',()=>clean(frame.contentDocument));
+    frame.src=sites[selected];
   </script>
 </body>
 </html>
