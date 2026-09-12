@@ -5,7 +5,9 @@ BAD = ['Buy Template', 'More Templates', 'Create a free website with Framer', 'F
 for path in sorted(Path('clones').glob('*.html')):
     text = path.read_text(errors='ignore')
     soup = BeautifulSoup(text, 'html.parser')
-    hits = [item for item in BAD if item.lower() in text.lower()]
+    visible_text = soup.get_text(' ', strip=True).lower()
+    non_asset_urls = ' '.join(str(tag.get('href', '')) for tag in soup.find_all('a')).lower()
+    hits = [item for item in BAD if item.lower() in visible_text or (item.lower() == 'framer.com' and 'framer.com' in non_asset_urls)]
     has_credit = 'abdul anas' in text.lower()
     print(path.name, 'hits=' + (','.join(hits) if hits else 'none'), 'credit=' + str(has_credit), 'html=' + str(bool(soup.html)), 'body=' + str(bool(soup.body)))
     if hits:

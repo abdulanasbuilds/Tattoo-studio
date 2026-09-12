@@ -15,7 +15,7 @@ BUILDER = {
 }
 REMOVE_TEXT = (
     'Buy Template', 'More Templates', 'Create a free website with Framer',
-    'Framer template', 'Website by Framer', 'Made in Framer', 'Get Template',
+    'Framer template', 'Framer Templates', 'Website by Framer', 'Made in Framer', 'Get Template',
     'Charwastudio', 'Created by',
 )
 STYLE = '''<style id="abdul-anas-overrides">
@@ -68,15 +68,17 @@ def sanitize(path):
     for tag in soup.find_all(True):
         for attr in list(tag.attrs or {}):
             if attr.lower().startswith('data-framer'): del tag.attrs[attr]
-            elif isinstance(tag.attrs.get(attr), str) and 'framer.com' in tag.attrs[attr].lower():
+            elif tag.name not in {'script', 'link'} and isinstance(tag.attrs.get(attr), str) and 'framer.com' in tag.attrs[attr].lower():
                 tag.attrs[attr] = tag.attrs[attr].replace('jane@framer.com', 'jane@example.com').replace('framer.com', 'example.com')
     for tag in list(soup.find_all(['a','button','div','span','p','small','li'])):
         if tag.parent is None or tag.name in {'body','html','main','footer'} or tag.get('id') == 'main' or tag.parent.get('id') == 'main': continue
         if text_match(tag):
             tag.decompose()
     for tag in list(soup.find_all(['a','script','link'])):
+        # Keep the original page scripts: several Framer captures hydrate their
+        # visible page from these modules. Visible promotions and badges are
+        # removed structurally below, without breaking the reference layout.
         if tag.name == 'script':
-            tag.decompose()
             continue
         href, src = str(tag.get('href','')), str(tag.get('src',''))
         script = tag.get_text(' ', strip=False) if tag.name == 'script' else ''
@@ -102,7 +104,12 @@ def sanitize(path):
     head = soup.head or soup.new_tag('head'); head.append(BeautifulSoup(STYLE, 'html.parser'))
     if soup.head is None and soup.html: soup.html.insert(0, head)
     builder_footer(soup)
-    output = str(soup).replace('template-overlay','abdul-hidden-overlay').replace('framer-badge','abdul-hidden-badge').replace('framer.com','abdul-anas.dev')
+    output = str(soup).replace('template-overlay','abdul-hidden-overlay').replace('framer-badge','abdul-hidden-badge')
+    # Hydration payloads can retain promotion copy as string data even after
+    # visible nodes are removed; scrub those exact phrases while preserving
+    # the rest of the original runtime.
+    for marker in REMOVE_TEXT:
+        output = output.replace(marker, '')
     path.write_text(output, encoding='utf-8')
 
 if __name__ == '__main__':
