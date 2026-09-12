@@ -3,30 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Exact reference variants for the supplied tattoo and creative studio websites.">
-  <title>Reference Variants — Tattoo Studio</title>
+  <meta name="description" content="Tattoo studio and visual art practice featuring custom tattoos, paintings, sketches, and original artwork.">
+  <title>Seidu Tattoo Studio — Tattoos & Visual Art</title>
   <style>
     :root{font-family:Arial,sans-serif;color:#fff;background:#111}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#111}.reference-frame{border:0;width:100%;height:100%;display:block;background:#111}.variant-bar{position:fixed;z-index:1000;top:16px;right:18px;font:12px/1 Arial,sans-serif;mix-blend-mode:difference}.variant-bar details{position:relative}.variant-bar summary{list-style:none;cursor:pointer;color:#fff;padding:9px 12px;border:1px solid #fff;background:#1118}.variant-bar summary::-webkit-details-marker{display:none}.variant-menu{position:absolute;right:0;top:38px;width:240px;padding:6px;background:#111;color:#fff;border:1px solid #fff}.variant-menu a{display:grid;grid-template-columns:35px 1fr;gap:8px;color:#fff;text-decoration:none;padding:11px 9px}.variant-menu a:hover,.variant-menu a.active{background:#fff;color:#111}.variant-menu b{font-size:10px;opacity:.65}@media(max-width:700px){.variant-bar{top:10px;right:10px}}
   </style>
 </head>
 <body>
-  <nav class="variant-bar" aria-label="Home reference variants"><details open><summary>HOME / VARIANTS ⌄</summary><div id="variantMenu" class="variant-menu"></div></details></nav>
-  <iframe id="referenceFrame" class="reference-frame" title="Selected reference website"></iframe>
+  <nav class="variant-bar" aria-label="Tattoo and visual art variants"><details open><summary>STUDIO / STYLES ⌄</summary><div id="variantMenu" class="variant-menu"></div></details></nav>
+  <iframe id="referenceFrame" class="reference-frame" title="Tattoo and visual art studio page"></iframe>
   <script>
     const references={
-      spector:{label:'Spector — Digital Creative Agency',url:'clones/spector-v74e2db6.html?clean=74e2db6'},
-      tatstudio:{label:'TAT Studio — Best Tattoo Studio in NYC',url:'clones/tatstudio-v74e2db6.html?clean=74e2db6'},
-      tattooverse:{label:'TattooVerse — Art Beneath the Skin',url:'clones/tattooverse-v74e2db6.html?clean=74e2db6'},
-      tattoxa:{label:'Tattoxa — Premium Tattoo Studio',url:'clones/tattoxa-v74e2db6.html?clean=74e2db6'},
-      marrow:{label:'Marrow — Tattoo Studio, London E2',url:'clones/marrow-v74e2db6.html?clean=74e2db6'},
-      david:{label:'David — Custom Tattoo Design',url:'clones/david-v74e2db6.html?clean=74e2db6'},
-      uroki:{label:'Uroki Tattoo Studio — Warsaw',url:'clones/uroki-v74e2db6.html?clean=74e2db6'}
+      spector:{label:'Visual Art & Tattoo Studio',url:'clones/spector-v74e2db6.html?clean=74e2db6'},
+      tatstudio:{label:'Tattoo Studio — Tattoos & Visual Art',url:'clones/tatstudio-v74e2db6.html?clean=74e2db6'},
+      tattooverse:{label:'TattooVerse — Tattoos & Visual Art',url:'clones/tattooverse-v74e2db6.html?clean=74e2db6'},
+      tattoxa:{label:'Tattoxa — Tattoo & Visual Art',url:'clones/tattoxa-v74e2db6.html?clean=74e2db6'},
+      marrow:{label:'Marrow — Tattoo & Visual Art',url:'clones/marrow-v74e2db6.html?clean=74e2db6'},
+      david:{label:'David — Custom Tattoo & Art',url:'clones/david-v74e2db6.html?clean=74e2db6'},
+      uroki:{label:'Uroki — Tattoo & Visual Art',url:'clones/uroki-v74e2db6.html?clean=74e2db6'}
     };
+
+    const copyRules=[
+      [/\bBuy Template\b/gi,'Book a session'],
+      [/\bMore Templates\b/gi,'View more work'],
+      [/Create a free website with Framer/gi,'Custom tattoos & visual art'],
+      [/\bFramer template\b/gi,'studio artwork'],
+      [/\bFramer Templates\b/gi,'studio work'],
+      [/\bWebsite by Framer\b/gi,'Seidu Tattoo Studio'],
+      [/\bMade in Framer\b/gi,'Seidu Tattoo Studio'],
+      [/\bGet Template\b/gi,'Book a session'],
+      [/\bpricing\b/gi,'services'],
+      [/\bprices?\b/gi,'session details'],
+      [/\bstarting\s+at\b/gi,'custom work'],
+      [/\bper\s+hour\b/gi,'per session'],
+      [/\bdeposit\b/gi,'booking note'],
+      [/\bbudget\b/gi,'design direction'],
+      [/\bcost\b/gi,'session details'],
+      [/\brequest a quote\b/gi,'send an enquiry'],
+      [/\brequest pricing\b/gi,'send an enquiry'],
+      [/\bview pricing\b/gi,'view the work'],
+      [/\bdigital creative agency\b/gi,'tattoo & visual art studio'],
+      [/\bcreative agency\b/gi,'tattoo & visual art studio'],
+      [/\bdigital agency\b/gi,'tattoo & visual art studio'],
+      [/\bcreative studio\b/gi,'tattoo & visual art studio'],
+      [/\bdesign agency\b/gi,'tattoo & visual art studio'],
+      [/\bdesign studio\b/gi,'tattoo & visual art studio'],
+      [/\bweb design\b/gi,'custom tattoo design'],
+      [/\bdigital design\b/gi,'visual art'],
+      [/\bdigital products?\b/gi,'custom artwork'],
+      [/\bbrand identity\b/gi,'art direction'],
+      [/\bbranding\b/gi,'visual art'],
+      [/\bcampaigns?\b/gi,'art projects'],
+      [/\bour team\b/gi,'our artists'],
+      [/\bthe team\b/gi,'the artists'],
+      [/\bportfolio\b/gi,'selected work'],
+      [/\bprojects?\b/gi,'artworks'],
+      [/\bcontact us\b/gi,'book a session'],
+      [/\bget in touch\b/gi,'book a session'],
+      [/\bwork with us\b/gi,'work with the artist'],
+      [/\bbook now\b/gi,'book a session']
+    ];
+    const priceToken=/(^|[^A-Za-z])(?:[$€£]\s*\d[\d,]*(?:\.\d{1,2})?|\d[\d,]*(?:\.\d{1,2})?\s*(?:USD|EUR|GBP|GHS))(?=[^A-Za-z]|$)/gi;
+
+    function rewrite(value){
+      let next=String(value||'').replace(priceToken,'$1custom work');
+      for(const [pattern,replacement] of copyRules) next=next.replace(pattern,replacement);
+      next=next.replace(/\bFramer(?:\.com)?\b/gi,'Seidu Tattoo Studio');
+      return next;
+    }
+
+    function rewriteIframe(frame){
+      let doc;
+      try{doc=frame.contentDocument;}catch(_){return;}
+      if(!doc||!doc.body)return;
+
+      const titleMap='Seidu Tattoo Studio — Tattoos & Visual Art';
+      if(doc.title)doc.title=titleMap;
+      else doc.title=titleMap;
+
+      const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT);
+      const nodes=[];
+      while(walker.nextNode()){
+        const node=walker.currentNode;
+        if(node.parentElement && !['SCRIPT','STYLE','NOSCRIPT'].includes(node.parentElement.tagName)) nodes.push(node);
+      }
+      for(const node of nodes){const next=rewrite(node.nodeValue);if(next!==node.nodeValue)node.nodeValue=next;}
+
+      doc.querySelectorAll('input[placeholder],textarea[placeholder],[aria-label],[title]').forEach(el=>{
+        for(const attr of ['placeholder','aria-label','title']){
+          if(el.hasAttribute(attr)) el.setAttribute(attr,rewrite(el.getAttribute(attr)));
+        }
+      });
+
+      const observer=new MutationObserver(mutations=>{
+        for(const mutation of mutations){
+          for(const node of mutation.addedNodes){
+            if(node.nodeType===Node.TEXT_NODE && node.parentElement && !['SCRIPT','STYLE','NOSCRIPT'].includes(node.parentElement.tagName)){
+              const next=rewrite(node.nodeValue);if(next!==node.nodeValue)node.nodeValue=next;
+            }else if(node.nodeType===Node.ELEMENT_NODE){
+              const subWalker=doc.createTreeWalker(node,NodeFilter.SHOW_TEXT);
+              const pending=[];
+              while(subWalker.nextNode()){
+                const textNode=subWalker.currentNode;
+                if(textNode.parentElement && !['SCRIPT','STYLE','NOSCRIPT'].includes(textNode.parentElement.tagName))pending.push(textNode);
+              }
+              for(const textNode of pending){const next=rewrite(textNode.nodeValue);if(next!==textNode.nodeValue)textNode.nodeValue=next;}
+            }
+          }
+        }
+      });
+      observer.observe(doc.body,{subtree:true,childList:true});
+    }
+
     const params=new URLSearchParams(location.search);
     const selected=references[params.get('site')]?params.get('site'):'tatstudio';
     const menu=document.getElementById('variantMenu');
     menu.innerHTML=Object.entries(references).map(([id,item])=>`<a class="${id===selected?'active':''}" href="?site=${id}"><b>${id.toUpperCase()}</b><span>${item.label}</span></a>`).join('');
-    document.getElementById('referenceFrame').src=references[selected].url;
+    const frame=document.getElementById('referenceFrame');
+    frame.addEventListener('load',()=>rewriteIframe(frame));
+    frame.src=references[selected].url;
   </script>
 </body>
 </html>
