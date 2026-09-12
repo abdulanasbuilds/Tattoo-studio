@@ -82,6 +82,54 @@
       [/\bLet's Discuss\b/gi,'Book a Session']
     ];
 
+    function removeUnrelatedFooterContent(doc){
+      const phrases=[
+        /ALEJA\s+3\s+MAJA\s+2\/45/i,
+        /GATE\s*3\s*,?\s*FLOOR\s*5/i
+      ];
+
+      for(const phrase of phrases){
+        const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT);
+        const matches=[];
+        while(walker.nextNode()){
+          const node=walker.currentNode;
+          const parent=node.parentElement;
+          if(parent&&!['SCRIPT','STYLE','NOSCRIPT'].includes(parent.tagName)&&phrase.test(node.nodeValue||''))matches.push(node);
+        }
+        for(const node of matches){
+          let el=node.parentElement;
+          while(el&&el!==doc.body){
+            const text=(el.textContent||'').replace(/\s+/g,' ').trim();
+            if(text.length<=180){
+              el.remove();
+              break;
+            }
+            el=el.parentElement;
+          }
+        }
+      }
+
+      doc.querySelectorAll('a[href]').forEach(a=>{
+        const href=(a.getAttribute('href')||'').toLowerCase();
+        const text=(a.textContent||'').replace(/\s+/g,' ').trim();
+        if(href.includes('gauravsinghdesign')||/gaurav\s+singh/i.test(text)){
+          a.textContent='Abdul Anas';
+          a.setAttribute('href','https://github.com/abdulanasbuilds');
+          a.setAttribute('target','_blank');
+          a.setAttribute('rel','noopener noreferrer');
+        }
+      });
+
+      const walker=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT);
+      const replacements=[];
+      while(walker.nextNode()){
+        const node=walker.currentNode;
+        const parent=node.parentElement;
+        if(parent&&!['SCRIPT','STYLE','NOSCRIPT'].includes(parent.tagName)&&/Website\s+by/i.test(node.nodeValue||''))replacements.push(node);
+      }
+      for(const node of replacements)node.nodeValue=(node.nodeValue||'').replace(/Website\s+by\s+Gaurav\s+Singh/gi,'Website by Abdul Anas');
+    }
+
     function clean(doc){
       if(!doc||!doc.body)return;
       doc.title='Tattoo Studio | Custom Tattoos & Visual Art';
@@ -105,6 +153,8 @@
           a.textContent='Book a Session';
         }
       });
+
+      removeUnrelatedFooterContent(doc);
 
       doc.querySelectorAll('meta[name="description"],meta[property="og:description"],meta[name="twitter:description"]').forEach(m=>m.setAttribute('content','Custom tattoos, paintings, sketches, and visual artwork from a modern tattoo studio.'));
       doc.querySelectorAll('meta[property="og:title"],meta[name="twitter:title"]').forEach(m=>m.setAttribute('content','Tattoo Studio | Custom Tattoos & Visual Art'));
