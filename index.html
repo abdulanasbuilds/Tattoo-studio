@@ -5,39 +5,130 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reusable tattoo studio and visual art website templates for client projects.">
   <title>Tattoo Studio</title>
-  <style>html,body{margin:0;height:100%;background:#0b0b0b}iframe{border:0;width:100%;height:100vh;display:block}</style>
+  <style>
+    :root{color-scheme:dark}
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:#0b0b0b}
+    body{overflow:hidden;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    iframe{position:fixed;inset:0;border:0;width:100%;height:100%;display:block;background:#0b0b0b}
+    .switcher{position:fixed;z-index:9999;top:18px;right:18px;display:flex;align-items:center;gap:6px;padding:6px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(12,12,12,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.28);opacity:.22;transition:opacity .2s ease,transform .2s ease}
+    .switcher:hover,.switcher:focus-within{opacity:1;transform:translateY(-1px)}
+    .switcher button{appearance:none;border:0;border-radius:999px;background:transparent;color:rgba(255,255,255,.7);font:600 12px/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.04em;padding:9px 12px;cursor:pointer;transition:background .2s ease,color .2s ease}
+    .switcher button:hover{color:#fff;background:rgba(255,255,255,.08)}
+    .switcher button.active{background:#fff;color:#111}
+    .switcher .label{padding:0 5px 0 7px;color:rgba(255,255,255,.42);font-size:10px;letter-spacing:.12em;text-transform:uppercase;pointer-events:none}
+    @media (max-width:640px){.switcher{top:10px;right:10px}.switcher .label{display:none}.switcher button{padding:8px 10px;font-size:11px}}
+  </style>
 </head>
 <body>
   <iframe id="page" title="Tattoo Studio"></iframe>
+
+  <nav class="switcher" aria-label="Template design switcher">
+    <span class="label">Design</span>
+    <button type="button" data-site="david" aria-label="Open Design 1">1</button>
+    <button type="button" data-site="uroki" aria-label="Open Design 2">2</button>
+  </nav>
+
   <script>
-    const sites={david:'clones/david-v74e2db6.html',uroki:'clones/uroki-v74e2db6.html'};
-    const requested=new URLSearchParams(location.search).get('site');
-    const selected=sites[requested]?requested:'david';
+    const sites={
+      david:'clones/david-v74e2db6.html',
+      uroki:'clones/uroki-v74e2db6.html'
+    };
     const frame=document.getElementById('page');
+    const buttons=[...document.querySelectorAll('[data-site]')];
+
+    function getSelected(){
+      const requested=new URLSearchParams(location.search).get('site');
+      return sites[requested]?requested:'david';
+    }
+
+    let selected=getSelected();
+
+    function setActive(site){
+      selected=sites[site]?site:'david';
+      buttons.forEach(btn=>btn.classList.toggle('active',btn.dataset.site===selected));
+    }
+
+    function switchSite(site,replace=false){
+      if(!sites[site])return;
+      setActive(site);
+      const url=new URL(location.href);
+      url.searchParams.set('site',site);
+      history[replace?'replaceState':'pushState']({},'',url);
+      frame.src=sites[site];
+    }
+
     const map=[
-      [/\bDavid\b/gi,'TATTOO STUDIO'],[/\bWilliams\b/gi,'VISUAL ART'],[/hello@davidwilliams\.com/gi,'Book a Session'],
-      [/\bUroki\b/gi,'TATTOO STUDIO'],[/\bNorthstar\b/gi,'TATTOO STUDIO'],[/\bSeidu\b/gi,'TATTOO STUDIO'],
-      [/\bEast Legon\b/gi,'By appointment'],[/\bManhattan\b/gi,'By appointment'],[/\bNew York City\b/gi,'Studio & Gallery'],[/\bLondon\b/gi,'By appointment'],
-      [/\bWarsaw\b/gi,'By appointment'],[/\bPoland\b/gi,'Studio & Gallery'],
-      [/\bOlivia\b/gi,'Tattoo Client'],[/\bGorgia Ferico\b/gi,'Tattoo Client'],[/\bCo-Founder at Luca\b/gi,'Custom Session'],
-      [/\bSeidu Tattoo Studio\b/gi,'Tattoo Studio'],[/\bHi, I am\b/gi,'WELCOME TO'],
-      [/\bContact us\b/gi,'Book a Session'],[/\bGet in touch\b/gi,'Book a Session'],[/\bLet’s Discuss\b/gi,'Book a Session'],[/\bLet's Discuss\b/gi,'Book a Session']
+      [/\bDavid\b/gi,'TATTOO STUDIO'],
+      [/\bWilliams\b/gi,'VISUAL ART'],
+      [/hello@davidwilliams\.com/gi,'Book a Session'],
+      [/\bUroki\b/gi,'TATTOO STUDIO'],
+      [/\bNorthstar\b/gi,'TATTOO STUDIO'],
+      [/\bSeidu\b/gi,'TATTOO STUDIO'],
+      [/\bEast Legon\b/gi,'By appointment'],
+      [/\bManhattan\b/gi,'By appointment'],
+      [/\bNew York City\b/gi,'Studio & Gallery'],
+      [/\bLondon\b/gi,'By appointment'],
+      [/\bWarsaw\b/gi,'By appointment'],
+      [/\bPoland\b/gi,'Studio & Gallery'],
+      [/\bOlivia\b/gi,'Tattoo Client'],
+      [/\bGorgia Ferico\b/gi,'Tattoo Client'],
+      [/\bCo-Founder at Luca\b/gi,'Custom Session'],
+      [/\bSeidu Tattoo Studio\b/gi,'Tattoo Studio'],
+      [/\bHi, I am\b/gi,'WELCOME TO'],
+      [/\bContact us\b/gi,'Book a Session'],
+      [/\bGet in touch\b/gi,'Book a Session'],
+      [/\bLet’s Discuss\b/gi,'Book a Session'],
+      [/\bLet's Discuss\b/gi,'Book a Session']
     ];
+
     function clean(doc){
       if(!doc||!doc.body)return;
-      if(doc.title)doc.title='Tattoo Studio | Custom Tattoos & Visual Art';
+      doc.title='Tattoo Studio | Custom Tattoos & Visual Art';
+
       const walk=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT);
-      const nodes=[];while(walk.nextNode())if(!['SCRIPT','STYLE','NOSCRIPT'].includes(walk.currentNode.parentElement?.tagName))nodes.push(walk.currentNode);
-      for(const node of nodes){let text=node.nodeValue;for(const [r,v] of map)text=text.replace(r,v);if(text!==node.nodeValue)node.nodeValue=text;}
+      const nodes=[];
+      while(walk.nextNode()){
+        const parent=walk.currentNode.parentElement;
+        if(parent&&!['SCRIPT','STYLE','NOSCRIPT'].includes(parent.tagName))nodes.push(walk.currentNode);
+      }
+      for(const node of nodes){
+        let text=node.nodeValue;
+        for(const [r,v] of map)text=text.replace(r,v);
+        if(text!==node.nodeValue)node.nodeValue=text;
+      }
+
       doc.querySelectorAll('a[href]').forEach(a=>{
         const h=(a.getAttribute('href')||'').toLowerCase();
-        if(h.startsWith('mailto:')||h.startsWith('tel:')||h.includes('davidwilliams')||h.includes('uroki')||h.includes('frank-pineapples')){a.setAttribute('href','#');a.textContent='Book a Session';}
+        if(h.startsWith('mailto:')||h.startsWith('tel:')||h.includes('davidwilliams')||h.includes('uroki')||h.includes('seidu')||h.includes('frank-pineapples')){
+          a.setAttribute('href','#');
+          a.textContent='Book a Session';
+        }
       });
+
       doc.querySelectorAll('meta[name="description"],meta[property="og:description"],meta[name="twitter:description"]').forEach(m=>m.setAttribute('content','Custom tattoos, paintings, sketches, and visual artwork from a modern tattoo studio.'));
       doc.querySelectorAll('meta[property="og:title"],meta[name="twitter:title"]').forEach(m=>m.setAttribute('content','Tattoo Studio | Custom Tattoos & Visual Art'));
-      new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1||n.nodeType===3)clean(doc)}))).observe(doc.body,{subtree:true,childList:true});
+      doc.querySelectorAll('meta[property="og:url"],link[rel="canonical"]').forEach(el=>el.removeAttribute('href'));
+
+      doc.querySelectorAll('img[alt],svg[aria-label]').forEach(el=>{
+        const key=el.hasAttribute('alt')?'alt':'aria-label';
+        let value=el.getAttribute(key)||'';
+        for(const [r,v] of map)value=value.replace(r,v);
+        if(value!==el.getAttribute(key))el.setAttribute(key,value);
+      });
     }
-    frame.addEventListener('load',()=>clean(frame.contentDocument));
+
+    buttons.forEach(btn=>btn.addEventListener('click',()=>switchSite(btn.dataset.site)));
+    window.addEventListener('popstate',()=>switchSite(getSelected(),true));
+    frame.addEventListener('load',()=>{
+      clean(frame.contentDocument);
+      try{
+        const observer=new MutationObserver(()=>clean(frame.contentDocument));
+        observer.observe(frame.contentDocument.body,{subtree:true,childList:true,characterData:true});
+      }catch(e){}
+    });
+
+    setActive(selected);
     frame.src=sites[selected];
   </script>
 </body>
