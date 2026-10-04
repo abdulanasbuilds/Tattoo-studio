@@ -1,34 +1,33 @@
-# Tattoo Studio Reference Variants
+# Tattoo Studio
 
-This project is intentionally reference-faithful. The Home / Variants menu exposes the seven supplied websites directly, page for page, while applying one shared builder footer and removing platform/template promotion.
+Reusable production-ready tattoo studio website + booking MVP.
 
-## Reference variants
+## Production entrypoints
 
-- TAT Studio — `?site=tatstudio`
-- TattooVerse — `?site=tattooverse`
-- Tattoxa — `?site=tattoxa`
-- Marrow — `?site=marrow`
-- David — `?site=david`
-- Uroki — `?site=uroki`
-- Spector — `?site=spector`
+- `index.html` → redirects to the production public site.
+- `studio.html` → public studio website and booking request form.
+- `admin.html` → staff portal.
+- `gallery.html` → preserved visual reference gallery.
+- `app/config.js` → deployment-specific Supabase URL, publishable key, and studio slug.
+- `supabase/migrations/20261004090000_tattoo_booking_mvp.sql` → schema and RLS.
+- `PRODUCTION_SYSTEM.md` → full implementation and deployment report.
 
-## Builder brand configuration
+## Product scope
 
-The footer is generated consistently across every clone from [`data/builder.json`](data/builder.json). To rebrand the builder, edit `displayName`, `handle`, phone numbers, and social URLs in that file, then regenerate the clones:
+The MVP is intentionally small:
 
-```bash
-python3 tools/sanitize_clones.py
-```
+- Public portfolio / artists / services
+- Native request-to-book form
+- External booking URL mode
+- External deposit/payment URL
+- Staff login
+- Booking inbox
+- Approve/decline
+- Studio configuration
+- Five visual themes
 
-Each page footer displays **BUILD BY ABDUL ANAS**, `@abdulanasbuilds`, `+233597896078`, and `0503474172`, with links to the configured social profiles. The original template/platform badges, purchase links, pricing promotions, and creator credits are removed.
+Payment processors, scheduling APIs, OAuth, calendar sync, email/SMS automation and file storage are deliberately not required for the first sale.
 
-## Run locally and verify
+## Important
 
-Run locally with any static server, for example:
-
-```bash
-python3 -m http.server 4173
-python3 tools/audit_clones.py
-```
-
-The current homepage is a thin local selector around the exact supplied reference pages so visual comparison remains one-to-one. All seven clone routes are static, directly addressable, and checked for valid HTML, preserved content, local image assets, and the shared builder footer.
+Do not use the Dabo Soccer Academy Supabase project for this product. Use a dedicated Supabase project per production environment.
