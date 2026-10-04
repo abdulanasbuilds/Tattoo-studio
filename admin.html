@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tattoo Studio Admin</title>
+  <link rel="stylesheet" href="production.css">
+  <script src="app/config.js"></script>
+  <style>
+    body{background:#0e0e0e}.admin-shell{max-width:1180px;margin:auto;padding:32px 20px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:24px}.panel{border:1px solid #2b2b2b;background:#151515;padding:20px;margin-bottom:18px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{border:1px solid #2b2b2b;padding:18px;background:#101010}.card b{font-size:28px;display:block}.table{width:100%;border-collapse:collapse}.table th,.table td{border-bottom:1px solid #2b2b2b;text-align:left;padding:11px 8px;vertical-align:top}.muted{color:#9d988e}.status{padding:4px 8px;border:1px solid #3b3b3b;font-size:12px}.row-actions{display:flex;gap:8px;flex-wrap:wrap}.small{padding:8px 10px}.hidden{display:none}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.json-help{font-size:13px;color:#999}@media(max-width:760px){.cards,.two{grid-template-columns:1fr}.table{display:block;overflow:auto;white-space:nowrap}.top{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="admin-shell">
+    <div id="login-view" class="panel">
+      <p class="label">Internal portal</p>
+      <h1>Studio Admin</h1>
+      <p class="muted">Only staff accounts assigned to a studio can access bookings and settings.</p>
+      <form id="login-form" class="form" style="max-width:420px">
+        <div class="field"><label>Email</label><input id="login-email" type="email" required></div>
+        <div class="field"><label>Password</label><input id="login-password" type="password" required></div>
+        <button class="btn" type="submit">Sign in</button>
+        <p id="login-message" class="message"></p>
+      </form>
+    </div>
+
+    <div id="app-view" class="hidden">
+      <div class="top"><div><p class="label">Internal portal</p><h1 id="studio-title">Studio</h1></div><button class="btn small" id="logout">Sign out</button></div>
+      <section class="cards">
+        <div class="card"><span class="muted">Pending</span><b id="pending-count">0</b></div>
+        <div class="card"><span class="muted">Approved</span><b id="approved-count">0</b></div>
+        <div class="card"><span class="muted">All requests</span><b id="all-count">0</b></div>
+      </section>
+
+      <section class="panel">
+        <div class="top"><div><p class="label">Booking requests</p><h2>Inbox</h2></div><button class="btn small" id="refresh">Refresh</button></div>
+        <div style="overflow:auto">
+          <table class="table"><thead><tr><th>Client</th><th>Request</th><th>Preferred</th><th>Status</th><th>Actions</th></tr></thead><tbody id="booking-rows"></tbody></table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <p class="label">Studio configuration</p>
+        <h2>Publishable settings</h2>
+        <form id="settings-form" class="form">
+          <div class="two">
+            <div class="field"><label>Studio name</label><input id="s-name" required></div>
+            <div class="field"><label>Slug</label><input id="s-slug" disabled></div>
+          </div>
+          <div class="two">
+            <div class="field"><label>Location</label><input id="s-location"></div>
+            <div class="field"><label>Timezone</label><input id="s-timezone" placeholder="America/Los_Angeles"></div>
+          </div>
+          <div class="two">
+            <div class="field"><label>Email</label><input id="s-email" type="email"></div>
+            <div class="field"><label>Phone</label><input id="s-phone"></div>
+          </div>
+          <div class="two">
+            <div class="field"><label>Instagram</label><input id="s-instagram"></div>
+            <div class="field"><label>TikTok</label><input id="s-tiktok"></div>
+          </div>
+          <div class="two">
+            <div class="field"><label>Theme</label><select id="s-theme"><option value="v1">Obsidian</option><option value="v2">Gallery</option><option value="v3">Rust</option><option value="v4">Ink Index</option><option value="v5">Electric</option></select></div>
+            <div class="field"><label>Booking mode</label><select id="s-booking-mode"><option value="request">Native request form</option><option value="external">External booking link</option></select></div>
+          </div>
+          <div class="two">
+            <div class="field"><label>External booking URL</label><input id="s-booking-url" placeholder="https://..."></div>
+            <div class="field"><label>Deposit / payment URL</label><input id="s-deposit-url" placeholder="https://..."></div>
+          </div>
+          <div class="field"><label>Tagline</label><input id="c-tagline"></div>
+          <div class="field"><label>About</label><textarea id="c-about"></textarea></div>
+          <div class="field"><label>Services</label><textarea id="c-services" placeholder="One per line: Custom tattoos | Custom designs built around the client's idea"></textarea></div>
+          <div class="field"><label>Artists</label><textarea id="c-artists" placeholder="One per line: Alex | Realism, portraits | https://image-url"></textarea></div>
+          <div class="field"><label>Portfolio</label><textarea id="c-portfolio" placeholder="One per line: Work title | Detail | https://image-url"></textarea></div>
+          <p class="json-help">These settings are intentionally simple. You can deploy a client without touching the code.</p>
+          <button class="btn" type="submit">Save studio settings</button>
+          <p id="settings-message" class="message"></p>
+        </form>
+      </section>
+
+      <section class="panel">
+        <p class="label">Deployment</p>
+        <p class="muted">Public site: <a href="studio.html" target="_blank">studio.html ↗</a> · Admin: <a href="admin.html" target="_blank">admin.html ↗</a></p>
+        <p class="muted">Payment and booking provider credentials are not required for this version. Use external links until a client specifically needs a direct API integration.</p>
+      </section>
+    </div>
+  </div>
+  <script type="module" src="app/admin.js"></script>
+</body>
+</html>
