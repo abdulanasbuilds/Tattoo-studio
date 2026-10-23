@@ -1,14 +1,16 @@
-# David Ink — Tattoo Studio
+# Tattoo Studio — Builder Demo
 
-A single, reference-led tattoo studio landing page based on the David direction from the supplied reference set.
+A reference-led tattoo studio website concept built by **Abdul Anas** (`@abdulanasbuilds`). This is a demonstration project, not a website representing an operating or client-owned tattoo business.
+
+## Builder contact
+
+- **Built by:** Abdul Anas
+- **WhatsApp / phone:** [+233 59 789 6078](https://wa.me/233597896078)
+- **GitHub:** [@abdulanasbuilds](https://github.com/abdulanasbuilds)
 
 ## Direction
 
-The public experience is intentionally one variation only: an editorial black-and-white layout with oversized display typography, full-bleed tattoo imagery, measured spacing, and quiet studio copy.
-
-## Link policy
-
-The public page contains no navigation links, external links, promotional links, contact links, booking forms, email links, phone links, or builder/social footer. It is a visual studio presentation only until client-facing content is ready.
+The public experience is an editorial black-and-white layout with oversized display typography, full-bleed tattoo imagery, measured spacing, and studio-style sample copy. Sample artists, testimonials, location, and booking information are illustrative and should not be presented as verified details for a real business.
 
 ## Run locally
 
