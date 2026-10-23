@@ -4,7 +4,7 @@ export const studio = {
   location: 'Independent demo concept',
   hours: 'Tue—Sat · 11:00—19:00',
   phone: '+233597896078',
-  email: 'abdulanassofficial@gmail.com',
+  email: '',
   intro: 'A considered tattoo practice for people who want their story to live in the details.',
   about: 'This demo is a tattoo studio concept and visual arts space where custom ink, painting, and printmaking share the same table. Every piece begins with a conversation, a point of view, and the patience to get the line right.',
   services: [
