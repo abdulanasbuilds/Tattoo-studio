@@ -19,3 +19,7 @@ python3 -m http.server 4173
 ```
 
 Open `http://localhost:4173/`.
+
+## External links and contact safety
+
+The public demo only links to the builder's GitHub profile and WhatsApp/call contact. Booking form is a local demonstration and does not send enquiries to an external service. External font files and Framer assets are loaded for visual styling; they are not contact or booking destinations.
