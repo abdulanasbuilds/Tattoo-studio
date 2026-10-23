@@ -1,12 +1,12 @@
 export const studio = {
-  name: 'NORTHSTAR INK',
-  eyebrow: 'Tattoo studio · visual arts · New York',
-  location: '148 Orchard Street, New York, NY 10002',
+  name: 'INK STUDIO',
+  eyebrow: 'Tattoo studio · visual arts · concept',
+  location: 'Independent demo concept',
   hours: 'Tue—Sat · 11:00—19:00',
-  phone: '+1 212 555 0194',
-  email: 'hello@northstar.ink',
+  phone: '+233597896078',
+  email: 'abdulanassofficial@gmail.com',
   intro: 'A considered tattoo practice for people who want their story to live in the details.',
-  about: 'Northstar is a private tattoo studio and visual arts space where custom ink, painting, and printmaking share the same table. Every piece begins with a conversation, a point of view, and the patience to get the line right.',
+  about: 'This demo is a tattoo studio concept and visual arts space where custom ink, painting, and printmaking share the same table. Every piece begins with a conversation, a point of view, and the patience to get the line right.',
   services: [
     { title: 'Custom tattooing', detail: 'One-off compositions built around your body, your reference points, and your story.', tags: 'bespoke · all scales' },
     { title: 'Fine line & micro realism', detail: 'Quiet marks, intricate shading, and detail that rewards a closer look.', tags: 'fine line · detail' },
@@ -61,7 +61,7 @@ export function getVariant(id) { return variants[id] ? id : 'v1'; }
 
 export function initData() { return { studio, variants, nav }; }
 
-if (typeof window !== 'undefined') window.NorthstarData = { studio, variants, nav, variantMeta, getVariant, initData };
+if (typeof window !== 'undefined') window.TattooStudioData = { studio, variants, nav, variantMeta, getVariant, initData };
 
 export default studio;
 
